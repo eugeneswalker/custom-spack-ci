@@ -63,14 +63,9 @@ def zci(parser, args, **kwargs):
   m = defaultdict(list)
   rebuilds = {}
   roots = {}
-  gpu = {}
 
   for cs in css:
     roots[jobname(cs)] = True
-    if 'cuda' in cs.variants and str(cs.variants['cuda']) == '+cuda':
-      gpu[jobname(cs)] = 'cuda'
-    elif 'rocm' in cs.variants and str(cs.variants["rocm"]) == '+rocm' :
-      gpu[jobname(cs)] = 'rocm'
     
     for s in cs.traverse(deptype=all):
       rjob = jobname(s)
@@ -140,8 +135,6 @@ def zci(parser, args, **kwargs):
       spec = staged[j]
 
       tags = []
-      if j in gpu:
-        tags.append(gpu[j])
 
       y["jobs"][j] = {
         "stage": ii,
