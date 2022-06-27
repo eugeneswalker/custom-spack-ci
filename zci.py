@@ -156,8 +156,6 @@ def zci(parser, args, **kwargs):
         "is_root": j in roots,
         "spec_file": specfilename(spec),
         "dag_hash": spec.dag_hash(),
-        "full_hash": spec.full_hash(),
-        "build_hash": spec.build_hash(),
         "needs": needsMap[j],
         "tags": ",".join(tags)
       }
