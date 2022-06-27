@@ -34,16 +34,10 @@ level = "short"
 
 def is_rebuild_required(o):
   name, spec, mirror = o
-  print("Checking if rebuild is required: {}".format(name))
   needs_rebuild = False
-  try:
-    tty._msg_enabled = False
-    tty._error_enabled = False
-    if binary.needs_rebuild(spec, mirror, True):
-      needs_rebuild = True
-  except Exception as e:
+  if not binary.try_direct_fetch(spec, {"_": mirror}):
+    print("Rebuild required: {}".format(name))
     needs_rebuild = True
-
   return (name, needs_rebuild)
 
 
